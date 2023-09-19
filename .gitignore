@@ -1,0 +1,11 @@
+# Ignorar a pasta 'env' (ambiente virtual)
+env/
+
+# Ignorar a pasta 'cache_data'
+cache_data/
+
+# Ignorar o arquivo 'test.ipynb'
+test.ipynb
+
+# Ignorar o arquivo 'test.py1'
+test.py1
