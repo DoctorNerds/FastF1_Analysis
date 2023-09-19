@@ -8,4 +8,4 @@ cache_data/
 test.ipynb
 
 # Ignorar o arquivo 'test.py1'
-test.py1
+test.py
