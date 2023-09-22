@@ -35,14 +35,28 @@ def tyre_strategy(data, selected_season, selected_event, selected_session):
         
         previous_stint_end = 0
         for _, stint in stints.iterrows():
-            plt.barh(
-                [driver], 
-                stint['StintLength'], 
-                left=previous_stint_end, 
-                color=compound_colors[stint['Compound']], 
-                edgecolor="black"
-            )
+
+            compound = stint['Compound']
             
+            # Verifique se o composto de pneu existe no dicionário
+            if compound in compound_colors:
+                plt.barh(
+                    [driver], 
+                    stint['StintLength'], 
+                    left=previous_stint_end, 
+                    color=compound_colors[compound], 
+                    edgecolor="black"
+                )
+            else:
+                # Se o composto de pneu não estiver no dicionário, use uma cor padrão ou lide com isso de outra forma
+                plt.barh(
+                    [driver], 
+                    stint['StintLength'], 
+                    left=previous_stint_end, 
+                    color='gray',  # Você pode escolher uma cor padrão aqui
+                    edgecolor="black"
+                )
+
             previous_stint_end = previous_stint_end + stint['StintLength']
             
             # Defina o título
@@ -60,7 +74,18 @@ def tyre_strategy(data, selected_season, selected_event, selected_session):
     ax.spines['left'].set_visible(False)
 
     used_colors = {compound: color for compound, color in compound_colors.items() if compound in driver_stints['Compound'].unique()}
-    handles = [plt.Rectangle((0, 0), 1, 1, color=color, label=compound) for compound, color in used_colors.items()]
+    #handles = [plt.Rectangle((0, 0), 1, 1, color=color, label=compound) for compound, color in used_colors.items()]
+
+    # Cria uma lista de identificadores para a legenda
+    handles = []
+
+    # Adiciona identificadores para os compostos conhecidos
+    for compound, color in used_colors.items():
+        handles.append(plt.Rectangle((0, 0), 1, 1, color=color, label=compound))
+
+    # Adiciona um identificador para 'TEST_UNKNOWN' com a cor cinza
+    handles.append(plt.Rectangle((0, 0), 1, 1, color='gray', label='TEST_UNKNOWN'))
+
 
     ax.legend(handles=handles, title='Compounds', loc='center left', bbox_to_anchor=(1, 0.5))
 
