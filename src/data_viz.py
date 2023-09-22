@@ -29,13 +29,13 @@ seasons = [2021, 2022, 2023]
 session_names = ['Session1', 'Session2', 'Session3', 'Session4', 'Session5']
 
 # Criar a interface de seleção de 'season' e 'stage'
-selected_season = st.selectbox('Select Season:', seasons, key='season_data', index=2023)
+selected_season = st.selectbox('Select Season:', seasons, key='season_data', index=seasons.index(2023))
 
 events_data = ff1.get_event_schedule(selected_season)
 events = events_data['OfficialEventName']
 
 # Criar a interface de seleção de 'season' e 'stage'
-selected_event = st.selectbox('Select Event:', events, key='event_data', index='FORMULA 1 LENOVO JAPANESE GRAND PRIX 2023')
+selected_event = st.selectbox('Select Event:', events, key='event_data', index=16)
 
 sessions_data = ff1.get_event(selected_season, selected_event)
 sessions = sessions_data[session_names]
