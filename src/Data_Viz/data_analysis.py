@@ -139,7 +139,7 @@ def data_analysis(data, selected_season, selected_event, selected_session):
                     )
 
                     # Oculte os eixos y
-                    fig.update_yaxes(showticklabels=False, row=j, col=i)
+                    fig.update_yaxes(showticklabels=False)
 
             # Adicione nomes das variáveis no eixo Y
             for j, variable_name in enumerate(variable_names_drivers, start=1):

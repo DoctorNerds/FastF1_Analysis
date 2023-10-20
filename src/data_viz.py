@@ -1,5 +1,6 @@
 import streamlit as st
 import fastf1 as ff1
+import os
 
 from PIL import Image
 
@@ -9,6 +10,9 @@ from Data_Viz.speed import speed
 from Data_Viz.tyre_strategy import tyre_strategy
 from Data_Viz.tyre_performance import tyre_performance
 from Data_Viz.track_speed_gear import track_speed_gear
+
+# Enable the cache
+ff1.Cache.enable_cache('cache_data2')
 
 # Título página inicial
 st.set_page_config(
@@ -35,7 +39,7 @@ events_data = ff1.get_event_schedule(selected_season)
 events = events_data['OfficialEventName']
 
 # Criar a interface de seleção de 'season' e 'stage'
-selected_event = st.selectbox('Select Event:', events, key='event_data', index=16)
+selected_event = st.selectbox('Select Event:', events, key='event_data', index=18)
 
 sessions_data = ff1.get_event(selected_season, selected_event)
 sessions = sessions_data[session_names]
