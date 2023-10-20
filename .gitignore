@@ -7,5 +7,11 @@ cache_data/
 # Ignorar o arquivo 'test.ipynb'
 test.ipynb
 
+# Ignorar o arquivo 'dataanalysisf1.ipynb'
+dataanalysisf1.ipynb
+
 # Ignorar o arquivo 'test.py1'
 test.py
+
+# Ignorar o arquivo 'readme.txt'
+readme.txt

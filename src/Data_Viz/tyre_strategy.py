@@ -11,16 +11,14 @@ def tyre_strategy(data, selected_season, selected_event, selected_session):
         'WET': '#00AEEF',
     }
         
-    # Enable the cache
-    #cache_folder = os.path.join(os.path.dirname(__file__), 'cache_data')
-    #ff1.Cache.enable_cache(cache_folder)
-
     driver_stints = data.laps[['Driver', 'Stint', 'Compound', 'LapNumber']].groupby(
         ['Driver', 'Stint', 'Compound']
     ).count().reset_index()
 
+    # Renomeia a coluna 'LapNumber' para 'StintLength' para representar o comprimento de cada stint
     driver_stints = driver_stints.rename(columns={'LapNumber': 'StintLength'})
 
+    # Ordena o DataFrame com base na coluna 'Stint' em ordem crescente
     driver_stints = driver_stints.sort_values(by=['Stint'])
 
     # Defina o tamanho da figura

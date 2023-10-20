@@ -25,7 +25,8 @@ def data_analysis(data, selected_season, selected_event, selected_session):
     else:
         row_heights = [1, 1, 0.5, 5, 1, 1, 0.5]
     
-    variable_names = ['Gap to Ref.', 'RPM', 'Gear', 'Speed', 'Throttle', 'Brake', 'DRS']
+    variable_names_driver = ['RPM', 'Gear', 'Speed', 'Throttle', 'Brake', 'DRS']
+    variable_names_drivers = ['Gap to Ref.', 'RPM', 'Gear', 'Speed', 'Throttle', 'Brake', 'DRS']
 
     # Crie um novo objeto de subplot com escalas independentes
     fig = sp.make_subplots(rows=7, cols=1, shared_xaxes=True, vertical_spacing=0.02, row_heights=row_heights)
@@ -55,6 +56,33 @@ def data_analysis(data, selected_season, selected_event, selected_session):
                 fig.add_trace(go.Scatter(x=telemetry_driver['Distance'], y=telemetry_driver['Brake'], mode='lines', name=f'{driver} - Brake', line=dict(color='red')), row=5, col=1)
                 fig.add_trace(go.Scatter(x=telemetry_driver['Distance'], y=telemetry_driver['DRS'], mode='lines', name=f'{driver} - DRS', line=dict(color='orange')), row=6, col=1)
         
+                # Configura o layout do gráfico
+                fig.update_layout(
+                    # Adiciona um título
+                    title={
+                                'text': f'Telemetry Data for {selected_session}',
+                                'x': 0.5,
+                                'xanchor': 'center',
+                                'y': 0.95,
+                                'yanchor': 'top',
+                                'font': {'size': 36}
+                            },
+                    showlegend=False,
+                    hovermode="x unified",
+                    height=700, 
+                )
+
+                # Oculta os eixos y para os 6 gráficos de linha gerados
+                fig.update_yaxes(showticklabels=False)
+
+            # Adiciona os nomes das variáveis no eixo Y para os 6 gráficos de linha gerados
+            for j, variable_name in enumerate(variable_names_driver, start=1):
+                fig.update_yaxes(title_text=variable_name, row=j, col=1)
+
+            # Use o st.plotly_chart para exibir o gráfico no Streamlit
+            st.plotly_chart(fig, use_container_width=True)
+
+
         else:
             # Crie uma lista de cores com base na equipe de cada driver
             colors = []
@@ -95,29 +123,26 @@ def data_analysis(data, selected_season, selected_event, selected_session):
                     fig.add_trace(go.Scatter(x=telemetry_driver['Distance'], y=telemetry_driver['Brake'], mode='lines', name=f'{driver} - Brake', line=dict(color=colors[i-1]), legendgroup=driver), row=6, col=1)
                     fig.add_trace(go.Scatter(x=telemetry_driver['Distance'], y=telemetry_driver['DRS'], mode='lines', name=f'{driver} - DRS', line=dict(color=colors[i-1]), legendgroup=driver), row=7, col=1)
 
-        if telemetry_driver is not None:
-            # Configure o layout do gráfico
-            fig.update_layout(
-                title={
-                            'text': f'Telemetry Data for {selected_session}',
-                            'x': 0.5,
-                            'xanchor': 'center',
-                            'y': 0.95,
-                            'yanchor': 'top',
-                            'font': {'size': 36}
-                        },
-                showlegend=False,
-                hovermode="x unified",
-                height=700,  # Ajuste a altura do gráfico com base no número de variáveis (6) multiplicado pelo número de drivers selecionados
-            )
+                    # Configure o layout do gráfico
+                    fig.update_layout(
+                        title={
+                                    'text': f'Telemetry Data for {selected_session}',
+                                    'x': 0.5,
+                                    'xanchor': 'center',
+                                    'y': 0.95,
+                                    'yanchor': 'top',
+                                    'font': {'size': 36}
+                                },
+                        showlegend=False,
+                        hovermode="x unified",
+                        height=700,  # Ajuste a altura do gráfico com base no número de variáveis (6) multiplicado pelo número de drivers selecionados
+                    )
 
-            # Oculte os eixos y
-            for i in range(1, len(selected_drivers) + 1):
-                for j in range(1, 7):
+                    # Oculte os eixos y
                     fig.update_yaxes(showticklabels=False, row=j, col=i)
 
             # Adicione nomes das variáveis no eixo Y
-            for j, variable_name in enumerate(variable_names, start=1):
+            for j, variable_name in enumerate(variable_names_drivers, start=1):
                 fig.update_yaxes(title_text=variable_name, row=j, col=1)
 
             # Use o st.plotly_chart para exibir o gráfico no Streamlit

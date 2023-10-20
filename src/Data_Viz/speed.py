@@ -44,8 +44,8 @@ def speed(data, selected_season, selected_event, selected_session):
     df_speed = pd.DataFrame(pilotos_info)
 
     # Ajuste de escala do eixo y
-    max_y_value_sector1_speed = df_speed['Sector 1 Speed'].max()*1.01
-    min_y_value_sector1_speed = df_speed['Sector 1 Speed'].max()*0.80
+    max_y_value_speed = df_speed['Sector 1 Speed'].max()*1.01
+    min_y_value_speed = df_speed['Sector 1 Speed'].max()*0.80
 
     # Para Sector 1 Speed
     fig_sector1 = px.bar(df_speed, x='Driver', y='Sector 1 Speed', color='Driver', color_discrete_map=driver_colors)
@@ -60,17 +60,13 @@ def speed(data, selected_season, selected_event, selected_session):
             },
         xaxis_title='Driver',
         yaxis_title='Speed',
-        yaxis=dict(range=[min_y_value_sector1_speed, max_y_value_sector1_speed]) 
+        yaxis=dict(range=[min_y_value_speed, max_y_value_speed]) 
     )
 
     # Exibindo os gráficos
     st.plotly_chart(fig_sector1, use_container_width=True)
 
-    # Ajuste de escala do eixo y
-    max_y_value_sector2_speed = df_speed['Sector 2 Speed'].max()*1.01
-    min_y_value_sector2_speed = df_speed['Sector 2 Speed'].max()*0.80
-
-    # Para Sector 1 Speed
+    # Para Sector 2 Speed
     fig_sector2 = px.bar(df_speed, x='Driver', y='Sector 2 Speed', color='Driver', color_discrete_map=driver_colors)
     fig_sector2.update_layout(
         title={
@@ -83,17 +79,13 @@ def speed(data, selected_season, selected_event, selected_session):
             },
         xaxis_title='Driver',
         yaxis_title='Speed',
-        yaxis=dict(range=[min_y_value_sector2_speed, max_y_value_sector2_speed]) 
+        yaxis=dict(range=[min_y_value_speed, max_y_value_speed]) 
     )
 
     # Exibindo os gráficos
     st.plotly_chart(fig_sector2, use_container_width=True)
 
-    # Ajuste de escala do eixo y
-    max_y_value_fl_speed = df_speed['Finish Line Speed'].max()*1.01
-    min_y_value_fl_speed = df_speed['Finish Line Speed'].max()*0.80
-
-    # Para Sector 1 Speed
+    # Para Finish Line Speed
     fig_sector3 = px.bar(df_speed, x='Driver', y='Finish Line Speed', color='Driver', color_discrete_map=driver_colors)
     fig_sector3.update_layout(
         title={
@@ -106,17 +98,13 @@ def speed(data, selected_season, selected_event, selected_session):
             },
         xaxis_title='Driver',
         yaxis_title='Speed',
-        yaxis=dict(range=[min_y_value_fl_speed, max_y_value_fl_speed]) 
+        yaxis=dict(range=[min_y_value_speed, max_y_value_speed]) 
     )
 
     # Exibindo os gráficos
     st.plotly_chart(fig_sector3, use_container_width=True)
 
-    # Ajuste de escala do eixo y
-    max_y_value_ls_speed = df_speed['Longest Straight Speed'].max()*1.01
-    min_y_value_ls_speed = df_speed['Longest Straight Speed'].max()*0.80
-
-    # Para Sector 1 Speed
+    # Para Longest Straight Speed
     fig_sector4 = px.bar(df_speed, x='Driver', y='Longest Straight Speed', color='Driver', color_discrete_map=driver_colors)
     fig_sector4.update_layout(
         title={
@@ -129,7 +117,7 @@ def speed(data, selected_season, selected_event, selected_session):
             },
         xaxis_title='Driver',
         yaxis_title='Speed',
-        yaxis=dict(range=[min_y_value_ls_speed, max_y_value_ls_speed]) 
+        yaxis=dict(range=[min_y_value_speed, max_y_value_speed]) 
     )
 
     # Exibindo os gráficos
